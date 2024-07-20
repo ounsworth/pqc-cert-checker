@@ -1,1 +1,2 @@
-artifacts/*
+docker_input/*
+docker_output/*
