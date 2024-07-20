@@ -2,7 +2,9 @@ name: Artifact validation
 
 on:
   push:
-    branches:['*']
+    branches: [ '*' ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   oqs_validation:
