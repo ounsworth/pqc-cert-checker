@@ -2,8 +2,8 @@
 
 certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
-inputdir="/input"
-outputdir="/output/certs"
+inputdir="./providers"
+outputdir="./output/certs"
 
 # Requires an input: the TA file to test
 test_ta () {
