@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Requires an input: the TA file to test
 test_ta () {
