@@ -13,10 +13,10 @@ test_ta () {
     # print it out for the logs
     echo "$ossl_output"
 
-    oid=$(echo $tafile | cut -d "_" -f 1)
+    oid=$(echo $tafile | cut -d "_" -f 1 | rev | cut -d '/' -f 1 | rev)
 
     # test for an error
-    if (echo $ossl_output | grep "error\|Unable to load certificate" >/dev/null); then
+    if (echo $ossl_output | grep "Error\|Unable to load certificate"); then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
@@ -26,19 +26,18 @@ test_ta () {
 }
 
 # First, recurse into any provider dir
-for provider in $(ls -d */); do
-    provider=${provider%*/}  # remove the trailing "/"
-    for zip in $(ls -d $provider/*.zip); do
+for provider in $(ls -d ../providers/*/ | cut -d "/" -f 3); do
+    for zip in $(ls -d ../providers/$provider/*.zip); do
         printf "Unziping %s\n" $zip
-        unzip -o $zip
+        unzip -o $zip -d zipOutput
 
         # Start the results CSV file
-        mkdir output 
+        mkdir -p output 
         resultsfile=output/${provider}_oqsprovider.csv
         echo "key_algorithm_oid,test_result" > $resultsfile
 
         # test each TA file
-        for tafile in $(ls *_ta.pem); do
+        for tafile in $(find zipOutput -type f -name '*.pem'); do
             test_ta "$tafile" "$resultsfile"
         done
     done
