@@ -12,3 +12,4 @@ RUN useradd app
 USER app
 
 CMD ["entrypoint.sh"]
+ 

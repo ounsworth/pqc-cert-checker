@@ -32,8 +32,9 @@ for provider in $(ls -d */); do
         printf "Unziping %s\n" $zip
         unzip -o $zip
 
-        # Start the results CSV file    
-        resultsfile=${provider}_oqsprovider.csv
+        # Start the results CSV file
+        mkdir output 
+        resultsfile=output/${provider}_oqsprovider.csv
         echo "key_algorithm_oid,test_result" > $resultsfile
 
         # test each TA file
