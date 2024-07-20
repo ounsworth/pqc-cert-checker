@@ -1,5 +1,10 @@
 #!/bin/bash
 
+certszipr3="artifacts_certs_r3.zip"
+cmszipr1="artifacts_cms_v1.zip"
+inputdir="input"
+outputdir="output"
+
 # Requires an input: the TA file to test
 test_ta () {
     tafile=$1
@@ -13,7 +18,8 @@ test_ta () {
     # print it out for the logs
     echo "$ossl_output"
 
-    oid=$(echo $tafile | cut -d "_" -f 1)
+    tafileBasename=$(basename $tafile)
+    oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
     if (echo $ossl_output | grep "error\|Unable to load certificate" >/dev/null); then
@@ -26,21 +32,21 @@ test_ta () {
 }
 
 # First, recurse into any provider dir
-for provider in $(ls -d */); do
-    provider=${provider%*/}  # remove the trailing "/"
-    for zip in $(ls -d $provider/*.zip); do
-        printf "Unziping %s\n" $zip
-        unzip -o $zip
+for providerdir in $(ls -d $inputdir/*/); do
+    provider=$(basename $providerdir)
 
-        # Start the results CSV file
-        mkdir output 
-        resultsfile=output/${provider}_oqsprovider.csv
-        echo "key_algorithm_oid,test_result" > $resultsfile
+    # process certs
+    zip=$providerdir/$certszipr3
+    printf "Unziping %s\n" $zip
+    unzip -o $zip -d "artifacts_certs_r3"
 
-        # test each TA file
-        for tafile in $(ls *_ta.pem); do
-            test_ta "$tafile" "$resultsfile"
-        done
+    # Start the results CSV file
+    resultsfile=output/${provider}_oqsprovider.csv
+    echo "key_algorithm_oid,test_result" > $resultsfile
+
+    # test each TA file
+    for tafile in $(ls artifacts_certs_r3/*_ta.pem); do
+        test_ta "$tafile" "$resultsfile"
     done
 done
 
