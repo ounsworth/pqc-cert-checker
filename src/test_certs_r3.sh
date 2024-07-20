@@ -3,7 +3,7 @@
 certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
 inputdir="input"
-outputdir="output"
+outputdir="output/certs"
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -41,7 +41,8 @@ for providerdir in $(ls -d $inputdir/*/); do
     unzip -o $zip -d "artifacts_certs_r3"
 
     # Start the results CSV file
-    resultsfile=output/${provider}_oqsprovider.csv
+    mkdir -p $outputdir
+    resultsfile=$outputdir/${provider}_oqsprovider.csv
     echo "key_algorithm_oid,test_result" > $resultsfile
 
     # test each TA file
