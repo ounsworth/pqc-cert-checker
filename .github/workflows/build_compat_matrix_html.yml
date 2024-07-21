@@ -2,7 +2,7 @@ name: Build Compat Matrix HTML
 
 on:
   push:
-    branches: [ 'mikeo_gh_automation' ]
+    branches: [ '*' ]
   #pull_request:
   #  branches: [ "main" ]
 
