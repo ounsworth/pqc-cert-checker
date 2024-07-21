@@ -4,5 +4,6 @@ Source code for a github action to check a bundle of post-quantum certificates u
 # Input
 Before running the `dockerfile`, place into the folder `providers/` one or more directories `<prodiver_name>/artifacts_certs_r3.zip` as per https://github.com/IETF-HACKATHON/pqc-certificates.
 
+
 # Output
-TODO -- csv output will be placed in `docker_output`.
+TODO -- csv output will be placed in `output/certs/*_oqsprovider.csv`.

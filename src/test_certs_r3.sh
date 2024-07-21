@@ -36,7 +36,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=$providerdir$certszipr3
+    zip=$providerdir/$certszipr3
     printf "Unziping %s\n" $zip
     unzip -o $zip -d "artifacts_certs_r3"
 

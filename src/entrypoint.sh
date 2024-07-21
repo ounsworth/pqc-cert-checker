@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-./test_certs_r3.sh
+/test_certs_r3.sh
