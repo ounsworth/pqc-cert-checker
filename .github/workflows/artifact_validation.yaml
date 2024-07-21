@@ -54,12 +54,11 @@ jobs:
         uses: actions/download-artifact@v4
         with: 
           name: Compatibility_csv
-          path: ./output/
+          path: ./providers/oqsprovider/compatMatrices/artifacts_certs_r3
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: ls ./output/certs/
-   #        mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
+        run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
       - name: Archive Compatibility Matrix For Download
         uses: actions/upload-artifact@v4
         with:
