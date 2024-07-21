@@ -4,12 +4,6 @@ on:
   push:
     branches: [ 'main' ]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
@@ -59,30 +53,42 @@ jobs:
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
         run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
-      # - name: Archive Compatibility Matrix For Download
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     # name: Compatibility-matrix-html
-      #     name: github-pages
-      #     path: ./docs/toUpload
-      - name: Upload a github-pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with: 
+      - name: Archive Compatibility Matrix For Download
+        uses: actions/upload-artifact@v4
+        with:
+          # name: Compatibility-matrix-html
+          name: github-pages
           path: ./docs/toUpload
   publish_to_gh_pages:
+    needs: build_results_html
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build_results_html
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      # - name: Get output from last job
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: Compatibility-matrix-html
-      #     path: ./docs/toUpload
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   runs-on: ubuntu-latest
+  #   needs: build_results_html
+  #   permissions:
+  #     contents: read
+  #     pages: write
+  #     id-token: write
+  #   steps:
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v5
+  #     # - name: Get output from last job
+  #     #   uses: actions/download-artifact@v4
+  #     #   with:
+  #     #     name: Compatibility-matrix-html
+  #     #     path: ./docs/toUpload
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
