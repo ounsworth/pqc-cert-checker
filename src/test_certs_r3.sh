@@ -13,7 +13,8 @@ test_ta () {
     printf "\nTesting %s\n" $tafile
 
     # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
-    ossl_output=$(openssl x509 -in $tafile -text -noout 2>&1)
+    ossl_output=$(openssl verify -check_ss_sig -CAfile $tafile $tafile 2>&1)
+    ossl_succes=$?
 
     # print it out for the logs
     echo "$ossl_output"
@@ -22,12 +23,12 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if (echo $ossl_output | grep "error\|Unable\|Error" >/dev/null); then
-        echo "Certificate Validation Result: FAIL"
-        echo $oid,N >> $resultsfile
-    else
+    if $ossl_succes; then
         echo "Certificate Validation Result: SUCCESS"
         echo $oid,Y >> $resultsfile
+    else
+        echo "Certificate Validation Result: FAIL"
+        echo $oid,N >> $resultsfile
     fi
 }
 
