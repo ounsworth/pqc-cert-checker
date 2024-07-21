@@ -18,7 +18,7 @@ jobs:
           apt-get update && apt-get install -y pandoc
       - name: Install Python
         uses: actions/setup-python@v5
-        run: pip install -r ./src/requirements.txt
+      - run: pip install -r ./src/requirements.txt
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       # - name: Archive Compatibility Matrix
