@@ -62,9 +62,9 @@ jobs:
       - name: Archive Compatibility Matrix For Download
         uses: actions/upload-artifact@v4
         with:
-          name: Compatibility-matrix-html
+          # name: Compatibility-matrix-html
+          name: github-pages
           path: ./docs/toUpload
-  # TODO -- need to link up jobs with OUTPUT / INPUT
   publish_to_gh_pages:
     environment:
       name: github-pages
@@ -74,11 +74,11 @@ jobs:
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Get output from last job
-        uses: actions/download-artifact@v4
-        with:
-          name: Compatibility-matrix-html
-          path: ./docs/toUpload
+      # - name: Get output from last job
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: Compatibility-matrix-html
+      #     path: ./docs/toUpload
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
