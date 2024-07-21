@@ -32,8 +32,6 @@ jobs:
         with:
           name: Compatibility_csv
           path: ./output/
-      - name: Overwrite manually-uploaded OQS results with auto-generated ones
-        run: ls ./output/certs/
     #     mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
   # TODO -- include output of previous job in the set of CSVs used by the next job
   #         Should probably remove the manually-generated OQS compatMatrices, and put the results there instead.
@@ -60,8 +58,8 @@ jobs:
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       - name: Copy output files
-        run: |
-           mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
+        run: ls ./output/certs/
+   #        mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
       - name: Archive Compatibility Matrix For Download
         uses: actions/upload-artifact@v4
         with:
