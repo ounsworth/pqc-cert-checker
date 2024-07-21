@@ -7,4 +7,6 @@ Before running the `dockerfile`, place into the folder `providers/` one or more 
 
 # Output
 
-./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html
+Built results tables can be viewed here:
+
+[https://ounsworth.github.io/pqc-cert-checker/]
