@@ -7,8 +7,8 @@ on:
   #  branches: [ "main" ]
 
 jobs:
-  oqs_validation:
-    # runs-on: ubuntu-latest
+  setup-and-build:
+    runs-on: ubuntu-latest
     container: ubuntu-latest
     steps:
       - name: Checkout code
