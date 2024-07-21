@@ -3,8 +3,9 @@
 # build a list of all compat matrix files in provider dirs
 dirs=$(ls providers)
 for dir in $dirs; do
-    dir=./providers/$dir
+    dir=providers/$dir
     printf "dir: %s\n" $dir
+    printf "pwd: %s\n" $(pwd)
     if [ ! -d $dir ]; then continue; fi
     files+=$(find $dir/compatMatrices/artifacts_certs_r3/ -name "*.csv" )
     files+=" "
