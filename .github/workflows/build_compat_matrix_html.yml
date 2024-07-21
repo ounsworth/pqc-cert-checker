@@ -8,15 +8,15 @@ on:
 
 jobs:
   oqs_validation:
-    runs-on: ubuntu-latest
-    #container: ubuntu-latest
+    # runs-on: ubuntu-latest
+    container: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install packages
         run: | 
           apt install pandoc && \
-          python3 -m pip install -r ./src/requirements.txt
+          pip3 install -r ./src/requirements.txt 2>&1 | grep ERROR
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       # - name: Archive Compatibility Matrix
