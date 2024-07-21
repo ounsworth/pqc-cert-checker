@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Test artifacts with OQS
       ## TODO -- actually validate the signature on the TA cert; not just import it. 
-      ##         this will need a better openssl command
+      ##         replace with `openssl verify -check_ss_sig -CAfile <ca cert> <ee cert>`
         run: ./src/test_certs_r3.sh
       - name: Overwrite manually-uploaded OQS results with auto-generated ones
         run: mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
