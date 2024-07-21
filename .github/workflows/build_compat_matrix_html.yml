@@ -19,8 +19,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
-          cache: 'pip' # caching pip dependencies
+          python-version: '3.10'
       - run: pip install -r ./src/requirements.txt
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
