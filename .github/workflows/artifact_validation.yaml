@@ -32,8 +32,9 @@ jobs:
         with:
           name: Compatibility_csv
           path: ./output/
-  #     - name: Overwrite manually-uploaded OQS results with auto-generated ones
-  #       run: mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
+      - name: Overwrite manually-uploaded OQS results with auto-generated ones
+        run: ls ./output/certs/
+    #     mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
   # TODO -- include output of previous job in the set of CSVs used by the next job
   #         Should probably remove the manually-generated OQS compatMatrices, and put the results there instead.
   build_results_html:
