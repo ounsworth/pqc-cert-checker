@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Test
+      - name: Test artifacts with OQS
         run: ./src/test_certs_r3.sh
       # - name: Archive Compatibility Matrix
       #   uses: actions/upload-artifact@v4
       #   with:
       #     name: compatibility-matrix
-      #     path: ./docs/*.html
+      #     path: ./output/*
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
