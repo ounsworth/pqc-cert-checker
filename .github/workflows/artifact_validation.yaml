@@ -2,7 +2,7 @@ name: Artifact validation
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'mikeo_auto_only' ]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
