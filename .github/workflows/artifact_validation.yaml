@@ -68,7 +68,7 @@ jobs:
       - name: Upload a github-pages artifact
         uses: actions/upload-pages-artifact@v1
         with: 
-          path: ./docs/toUploads
+          path: ./docs/toUpload
   publish_to_gh_pages:
     environment:
       name: github-pages
