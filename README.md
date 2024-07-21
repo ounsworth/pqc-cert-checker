@@ -6,4 +6,5 @@ Before running the `dockerfile`, place into the folder `providers/` one or more 
 
 
 # Output
-TODO -- csv output will be placed in `output/certs/*_oqsprovider.csv`.
+
+./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_certs_r3_automated_tests.html ./docs/pqc_hackathon_results_cms_v1.html
