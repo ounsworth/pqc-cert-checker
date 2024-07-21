@@ -55,7 +55,7 @@ jobs:
         run: mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
       - name: Archive Compatibility Matrix For Download
         # uses: actions/upload-artifact@v4
-        uses:  upload-pages-artifact@v3
+        uses:  actions/upload-pages-artifact@v3
         with:
           # name: Compatibility-matrix-html
           # name: github-pages
