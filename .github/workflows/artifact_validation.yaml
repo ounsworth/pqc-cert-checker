@@ -27,13 +27,19 @@ jobs:
       ## TODO -- actually validate the signature on the TA cert; not just import it. 
       ##         replace with `openssl verify -check_ss_sig -CAfile <ca cert> <ee cert>`
         run: ./src/test_certs_r3.sh
-      - name: Overwrite manually-uploaded OQS results with auto-generated ones
-        run: mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Compatibility_csv
+          path: ./output/
+  #     - name: Overwrite manually-uploaded OQS results with auto-generated ones
+  #       run: mv -f ./output/certs/* ./providers/oqs/oqsprovider/compatMatrices/artifacts_certs_r3
   # TODO -- include output of previous job in the set of CSVs used by the next job
   #         Should probably remove the manually-generated OQS compatMatrices, and put the results there instead.
   build_results_html:
     runs-on: ubuntu-latest
     container: ubuntu:latest
+    needs: oqs_validation
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,15 +51,19 @@ jobs:
         with:
           python-version: '3.x'
       - run: python -m pip install -r src/requirements.txt
+      - name: Collect artifacts for download
+        uses: actions/download-artifact@v4
+        with: 
+          name: Compatibility_csv
+          path: ./output/
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
-      - name: Collect artifacts for download
-        run: |
-            mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
+ #       run: |
+ #           mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
       - name: Archive Compatibility Matrix For Download
         uses: actions/upload-artifact@v4
         with:
-          name: compatibility-matrix
+          name: Compatibility-matrix
           path: ./docs/toUpload
   # TODO -- need to link up jobs with OUTPUT / INPUT
   publish_to_gh_pages:
@@ -61,11 +71,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    needs: build_results_html
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Get output from last job
+        uses: actions/download-artifact@v4
+        with:
+          name: Compatibility-matrix
+          path: ./docs/toUpload
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
