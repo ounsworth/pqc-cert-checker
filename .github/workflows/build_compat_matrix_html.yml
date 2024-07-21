@@ -7,16 +7,21 @@ on:
   #  branches: [ "main" ]
 
 jobs:
-  oqs_validation:
+  setup-and-build:
     runs-on: ubuntu-latest
-    #container: ubuntu-latest
+    container: ubuntu:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install packages
         run: | 
-          apt install pandoc \
-          python3 -m pip install -r ./src/requirements.txt
+          apt-get update && apt-get install -y pandoc
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r ./src/requirements.txt
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       # - name: Archive Compatibility Matrix
