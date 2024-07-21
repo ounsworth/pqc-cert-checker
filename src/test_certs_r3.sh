@@ -23,7 +23,7 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if if (( ossl_status == 0 )); then
+    if (( ossl_status == 0 )); then
         echo "Certificate Validation Result: SUCCESS"
         echo $oid,Y >> $resultsfile
     else
