@@ -36,10 +36,12 @@ jobs:
       - run: python -m pip install -r src/requirements.txt
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
+      - run: |
+            mkdir ./docs/toUpload && mv ./docs/pqc_hackathon_results_certs_r3.html ./docs/pqc_hackathon_results_cms_v1.html ./docs/toUpload
       - name: Archive Compatibility Matrix For Download
         uses: actions/upload-artifact@v4
         with:
           name: compatibility-matrix
-          path: ./docs/*.html
+          path: ./docs/toUpload
 # TODO -- bundle the html pages for downloa
 # TODO -- publish the html pages to ghpages
