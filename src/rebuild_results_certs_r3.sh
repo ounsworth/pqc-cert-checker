@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # build a list of all compat matrix files in provider dirs
-dirs=$(ls ../providers)
+dirs=$(ls providers)
 for dir in $dirs; do
     dir=../providers/$dir
     if [ ! -d $dir ]; then continue; fi
