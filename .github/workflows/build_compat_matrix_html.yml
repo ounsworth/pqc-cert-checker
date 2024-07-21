@@ -16,7 +16,7 @@ jobs:
       - name: Install packages
         run: | 
           apt-get update && apt-get install -y pandoc python3-pip && \
-          python3 -m pip3 install -r ./src/requirements.txt
+          python3 -m pip install -r ./src/requirements.txt
       - name: Build compat matrix
         run: ./src/rebuild_results_certs_r3.sh
       # - name: Archive Compatibility Matrix
