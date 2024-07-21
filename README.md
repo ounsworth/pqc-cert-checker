@@ -9,4 +9,4 @@ Before running the `dockerfile`, place into the folder `providers/` one or more 
 
 Built results tables can be viewed here:
 
-[https://ounsworth.github.io/pqc-cert-checker/]
+https://ounsworth.github.io/pqc-cert-checker/
