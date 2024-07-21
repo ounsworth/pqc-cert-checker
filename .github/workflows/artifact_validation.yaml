@@ -79,7 +79,7 @@ jobs:
       - name: Get output from last job
         uses: actions/download-artifact@v4
         with:
-          name: Compatibility-matrix
+          name: Compatibility-matrix-html
           path: ./docs/toUpload
       - name: Deploy to GitHub Pages
         id: deployment
