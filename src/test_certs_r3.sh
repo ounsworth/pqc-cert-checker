@@ -23,7 +23,7 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if $ossl_succes; then
+    if ossl_succes; then
         echo "Certificate Validation Result: SUCCESS"
         echo $oid,Y >> $resultsfile
     else
@@ -39,7 +39,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # process certs
     zip=$providerdir/$certszipr3
     printf "Unziping %s\n" $zip
-    unzip -o $zip -d "artifacts_certs_r3"
+    unzip -o $zip -d $providerdir/"artifacts_certs_r3"
 
     # Start the results CSV file
     mkdir -p $outputdir
