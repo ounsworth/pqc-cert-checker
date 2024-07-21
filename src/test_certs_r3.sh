@@ -22,7 +22,7 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if (echo $ossl_output | grep "error\|Unable to load certificate" >/dev/null); then
+    if (echo $ossl_output | grep "error\|Unable\|Error" >/dev/null); then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else
@@ -36,7 +36,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     provider=$(basename $providerdir)
 
     # process certs
-    zip=$providerdir/$certszipr3
+    zip=$providerdir$certszipr3
     printf "Unziping %s\n" $zip
     unzip -o $zip -d "artifacts_certs_r3"
 
