@@ -13,17 +13,19 @@ test_ta () {
     printf "\nTesting %s\n" $tafile
 
     # openssl always exits with 0, so we can't use exit status to tell if the cert was valid :/
-    ossl_output=$(openssl verify -check_ss_sig -CAfile $tafile $tafile 2>&1)
+    ossl_output=$(openssl verify -check_ss_sig -verbose -CAfile $tafile $tafile)
     ossl_status=$?
 
+    printf "ossl_status: %s\n" $ossl_status
+
     # print it out for the logs
-    echo "$ossl_output"
+    # echo "$ossl_output"
 
     tafileBasename=$(basename $tafile)
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if (( ossl_status == 0 )); then
+    if [[ $ossl_status -eq 0 ]]; then
         echo "Certificate Validation Result: SUCCESS"
         echo $oid,Y >> $resultsfile
     else
@@ -39,7 +41,7 @@ for providerdir in $(ls -d $inputdir/*/); do
     # process certs
     zip=$providerdir$certszipr3
     printf "Unziping %s\n" $zip
-    unzip -o $zip -d $providerdir/"artifacts_certs_r3"
+    unzip -o $zip -d ${providerdir}artifacts_certs_r3
 
     # Start the results CSV file
     mkdir -p $outputdir
