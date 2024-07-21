@@ -6,7 +6,7 @@ for dir in $dirs; do
     dir=providers/$dir
     printf "dir: %s\n" $dir
     if [ ! -d $dir ]; then continue; fi
-    files+=$(find $dir/compatMatrices/artifacts_certs_r3 -name "*.csv" )
+    files+=$(find $dir/compatMatrices/artifacts_certs_r3/ -name "*.csv" )
     files+=" "
 done
 
