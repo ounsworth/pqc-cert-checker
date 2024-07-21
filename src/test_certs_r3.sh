@@ -2,8 +2,8 @@
 
 certszipr3="artifacts_certs_r3.zip"
 cmszipr1="artifacts_cms_v1.zip"
-inputdir="/input"
-outputdir="/output/certs"
+inputdir="./providers"
+outputdir="./output/certs"
 
 # Requires an input: the TA file to test
 test_ta () {
@@ -22,7 +22,7 @@ test_ta () {
     oid=${tafileBasename%_ta.pem}  # remove the suffix "_ta.pem"
 
     # test for an error
-    if (echo $ossl_output | grep "error\|Unable to load certificate" >/dev/null); then
+    if (echo $ossl_output | grep "error\|Unable\|Error" >/dev/null); then
         echo "Certificate Validation Result: FAIL"
         echo $oid,N >> $resultsfile
     else

@@ -1,0 +1,22 @@
+name: Artifact validation
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  oqs_validation:
+    runs-on: ubuntu-latest
+    container: openquantumsafe/oqs-ossl3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Test
+        run: ./src/test_certs_r3.sh
+      - name: Archive Compatibility Matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: compatibility-matrix
+          path: ./output/
